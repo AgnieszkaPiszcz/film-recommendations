@@ -1,0 +1,12 @@
+asgiref==3.6.0
+distlib==0.3.6
+Django==4.1.5
+django-neomodel==0.0.7
+filelock==3.9.0
+neo4j-driver==4.3.6
+neobolt==1.7.17
+neomodel==4.0.8
+platformdirs==2.6.2
+Shapely==1.7.1
+sqlparse==0.4.3
+virtualenv==20.17.1
