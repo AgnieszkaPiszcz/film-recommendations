@@ -81,6 +81,9 @@ DATABASES = {
     }
 }
 
+N4J_USERNAME = 'neo4j'
+N4J_PASSWORD = 'adminadmin' # zmienić na odpowiednie
+
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
