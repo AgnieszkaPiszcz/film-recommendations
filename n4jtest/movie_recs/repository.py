@@ -9,12 +9,21 @@ def clean_title(title):
     title = re.sub("[^a-zA-Z0-9 ]", "", title)
     return title
 
-def convert_ratings(ratings):
-    df = DataFrame(data={})
-    for index, row in ratings.iterrows():
-        df.at[row['uid'], row['mid']] = row['rating']
-    ndf = df.copy()
-    return ndf
+# def convert_ratings(ratings):
+#     df = DataFrame(data={})
+#     for index, row in ratings.iterrows():
+#         df.at[row['uid'], row['mid']] = row['rating']
+#     ndf = df.copy()
+#     return ndf
+
+# def convert_ratings2(ratings):
+#     d = {}
+#     for index, row in ratings.iterrows():
+#         if d.keys().__contains__(row['uid']):
+#             d[row['uid']].update(row['mid'], row['rating'])
+#         df.at[row['uid'], row['mid']] = row['rating']
+#     ndf = df.copy()
+#     return ndf
     
 
 def get_movies():
@@ -57,7 +66,7 @@ def get_ratings():
             conn.close()
     # if res is not None:
     #     res.rename(columns = { "m().prop.id": "id", "m().prop.title": "title" }, inplace=True)
-    return convert_ratings(res)
+    return res
 
 def find_movies(movie,rate,df):
     data=dict(movie=rate)
