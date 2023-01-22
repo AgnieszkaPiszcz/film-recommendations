@@ -55,4 +55,4 @@ def get_ratings():
             conn.close()
     # if res is not None:
     #     res.rename(columns = { "m().prop.id": "id", "m().prop.title": "title" }, inplace=True)
-    return res
+    return convert_ratings(res)
