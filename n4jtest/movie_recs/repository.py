@@ -38,7 +38,7 @@ def get_ratings():
     res = None
     try: 
         conn = N4jConnection.N4jConnection("bolt://localhost:7687", settings.N4J_USERNAME, settings.N4J_PASSWORD)
-        res =  conn.query("match (u:User)-[r:RATED]->(m:Movie) return u.id as uid, r.rating as rating, m.id as mid limit 10")
+        res =  conn.query("match (u:User)-[r:RATED]->(m:Movie) return u.id as uid, r.rating as rating, m.id as mid")
     except Exception as e:
         print("Query failed:", e)
     finally: 
