@@ -13,7 +13,8 @@ def convert_ratings(ratings):
     df = DataFrame(data={})
     for index, row in ratings.iterrows():
         df.at[row['uid'], row['mid']] = row['rating']
-    return df
+    ndf = df.copy()
+    return ndf
     
 
 def get_movies():

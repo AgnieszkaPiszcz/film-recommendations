@@ -1,5 +1,5 @@
 from sklearn.feature_extraction.text import TfidfVectorizer
-from movie_recs.repository import clean_title
+from movie_recs.repository import clean_title, get_movies
 from sklearn.metrics.pairwise import cosine_similarity
 import numpy as np
 
@@ -11,6 +11,10 @@ def search(movies, title):
     similarity = cosine_similarity(query_vec, tfidf).flatten()
     indices = np.argpartition(similarity, -5)[-5:]
     results = movies.iloc[indices].iloc[::-1]
+    r = movies.loc[0, "id"]
     
     return results
+
+
+print(search(get_movies(), "toy story"))
     

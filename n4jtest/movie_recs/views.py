@@ -18,9 +18,11 @@ def index(request):
         form = NameMovie(request.POST)
         if form.is_valid():
             movie=form.cleaned_data['your_movie']
+            m = search(get_movies(), movie)
+            
             rate=form.cleaned_data['your_rate']
             res = get_ratings()
-            return find_movies(movie,rate,res)
+            return find_movies(m,rate,res)
             # return redirect(movies)
     else:
         form=NameMovie
