@@ -10,14 +10,13 @@ def get_movies():
     res = None
     try: 
         conn = N4jConnection.N4jConnection("bolt://localhost:7687", settings.N4J_USERNAME, settings.N4J_PASSWORD)
-        res =  conn.query("MATCH (m:Movie) return *")
+        res =  conn.query("MATCH (m:Movie) return m.id as id, m.title as title")
     except Exception as e:
         print("Query failed:", e)
     finally: 
         if conn is not None:
             conn.close()
     if res is not None:
-        res.rename(columns = { "m().prop.id": "id", "m().prop.title": "title" }, inplace=True)
         res["clean_title"] = res["title"].apply(clean_title)
     return res
 
