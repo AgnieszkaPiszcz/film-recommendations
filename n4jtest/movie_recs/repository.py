@@ -1,10 +1,19 @@
 from n4jtest import N4jConnection
 from django.conf import settings
 import re
+from pandas import DataFrame
+
 
 def clean_title(title):
     title = re.sub("[^a-zA-Z0-9 ]", "", title)
     return title
+
+def convert_ratings(ratings):
+    df = DataFrame(data={})
+    for index, row in ratings.iterrows():
+        df.at[row['uid'], row['mid']] = row['rating']
+    return df
+    
 
 def get_movies():
     res = None
