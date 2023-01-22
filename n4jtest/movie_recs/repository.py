@@ -1,5 +1,10 @@
 from n4jtest import N4jConnection
 from django.conf import settings
+import re
+
+def clean_title(title):
+    title = re.sub("[^a-zA-Z0-9 ]", "", title)
+    return title
 
 def get_movies():
     res = None
@@ -13,6 +18,7 @@ def get_movies():
             conn.close()
     if res is not None:
         res.rename(columns = { "m().prop.id": "id", "m().prop.title": "title" }, inplace=True)
+        res["clean_title"] = res["title"].apply(clean_title)
     return res
 
 def get_movie_title_by_id(id):
