@@ -2,7 +2,8 @@ from n4jtest import N4jConnection
 from django.conf import settings
 import re
 from pandas import DataFrame
-
+import pandas as pd
+from numpy.linalg import norm
 
 def clean_title(title):
     title = re.sub("[^a-zA-Z0-9 ]", "", title)
@@ -56,3 +57,19 @@ def get_ratings():
     # if res is not None:
     #     res.rename(columns = { "m().prop.id": "id", "m().prop.title": "title" }, inplace=True)
     return convert_ratings(res)
+
+def find_movies(movie,rate,df):
+    data=dict(movie=rate)
+    my_df=pd.Series(data=data)
+    df=df.loc[my_df.index]
+    result=pd.Series(dtype="float64")
+    for column in df.columns:
+        result[column]=norm(df[column]-my_df)
+
+    result=result[result<=2]
+    df2=df2[list(result.index)]
+    df2=df2.loc[~df2.index.isin(list(my_df.index))]
+    df2=df2.fillna(df2.mean(skipna=True))
+    df2=df2.mean(axis=1)
+    df2=df2[df2>=4.5]
+    return(df2)
