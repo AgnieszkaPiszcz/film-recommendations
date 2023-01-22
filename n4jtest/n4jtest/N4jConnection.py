@@ -1,4 +1,5 @@
 from neo4j import GraphDatabase
+from pandas import DataFrame
   
         
 # N4jConnection("bolt://localhost:7687", "neo4j", "adminadmin")
@@ -25,7 +26,7 @@ class N4jConnection:
         response = None
         try: 
             session = self.__driver.session(database=db) if db is not None else self.__driver.session() 
-            response = list(session.run(query))
+            response = session.run(query).to_df(expand=True)
         except Exception as e:
             print("Query failed:", e)
         finally: 
