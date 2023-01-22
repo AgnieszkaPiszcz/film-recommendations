@@ -4,6 +4,22 @@ import re
 from pandas import DataFrame
 import pandas as pd
 from numpy.linalg import norm
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
+import numpy as np
+
+def search(movies, title):
+    vectorizer = TfidfVectorizer(ngram_range=(1,2))
+    tfidf = vectorizer.fit_transform(movies["clean_title"])
+    title = clean_title(title)
+    query_vec = vectorizer.transform([title])
+    similarity = cosine_similarity(query_vec, tfidf).flatten()
+    indices = np.argpartition(similarity, -5)[-5:]
+    results = movies.iloc[indices].iloc[::-1]
+    r = results.iat[0, 0]
+    
+    return r
+
 
 def clean_title(title):
     title = re.sub("[^a-zA-Z0-9 ]", "", title)
@@ -83,3 +99,22 @@ def find_movies(movie,rate,df):
     df2=df2.mean(axis=1)
     df2=df2[df2>=4.5]
     return(df2)
+
+def find_similar_movies(title):
+    ratings = get_ratings()
+    movies = get_movies()
+    movie_id = search(movies, title)
+    
+    similar_users = ratings[(ratings["mid"] == movie_id) & (ratings["rating"] > 4)]["uid"].unique()
+    similar_user_recs = ratings[(ratings["uid"].isin(similar_users)) & (ratings["rating"] > 4)]["mid"]
+    similar_user_recs = similar_user_recs.value_counts() / len(similar_users)
+
+    similar_user_recs = similar_user_recs[similar_user_recs > .10]
+    all_users = ratings[(ratings["mid"].isin(similar_user_recs.index)) & (ratings["rating"] > 4)]
+    all_user_recs = all_users["mid"].value_counts() / len(all_users["uid"].unique())
+    rec_percentages = pd.concat([similar_user_recs, all_user_recs], axis=1)
+    rec_percentages.columns = ["similar", "all"]
+    
+    rec_percentages["score"] = rec_percentages["similar"] / rec_percentages["all"]
+    rec_percentages = rec_percentages.sort_values("score", ascending=False)
+    return rec_percentages.head(10).merge(movies, left_index=True, right_on="id")[["score", "title"]]
