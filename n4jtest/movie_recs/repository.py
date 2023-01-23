@@ -115,6 +115,6 @@ def find_similar_movies(title):
     rec_percentages = pd.concat([similar_user_recs, all_user_recs], axis=1)
     rec_percentages.columns = ["similar", "all"]
     
-    rec_percentages["score"] = rec_percentages["similar"] / rec_percentages["all"]
+    rec_percentages["score"] = round(rec_percentages["similar"] / rec_percentages["all"],2)
     rec_percentages = rec_percentages.sort_values("score", ascending=False)
     return rec_percentages.head(10).merge(movies, left_index=True, right_on="id")[["score", "title"]]
