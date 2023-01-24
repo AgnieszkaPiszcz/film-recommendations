@@ -13,6 +13,7 @@ System został zaimplementowany jako aplikacja webowa przy użyciu Pythonowego f
 ## Konfiguracja środowiska python
 
 Wymagania: Linux, python 3.10 lub wyżej, pip, venv
+
 Kod źródłowy projektu umieścić w nowym folderze. Utworzyć wirtualne środowisko:
 
     python3 -m venv env
