@@ -10,24 +10,6 @@ System został zaimplementowany jako aplikacja webowa przy użyciu Pythonowego f
 
 # Instrukcja instalacji
 
-## Konfiguracja środowiska python
-
-Wymagania: Linux, python 3.10 lub wyżej, pip, venv
-
-Kod źródłowy projektu umieścić w nowym folderze. Utworzyć wirtualne środowisko:
-
-    python3 -m venv env
-
-Uruchomić wirtualne środowisko:
-
-    source env/bin/activate
-
-Zainstalować zależności:
-
-    pip install -r requirements.txt
-
-
-
 ## Instalacja i konfiguracja neo4j
 
 Zainstalować neo4j community edition 5.3.0 według instruckji na stronie https://neo4j.com/docs/operations-manual/current/installation/linux/debian/ .
@@ -49,6 +31,23 @@ oraz zgodnie z poleceniami ustawić nowe hasło. Wyjść z cypher-shell.
 Załadować dane do bazy komendą:
 
     cypher-shell -f create_db.cql
+
+
+## Konfiguracja środowiska python
+
+Wymagania: Linux, python 3.10 lub wyżej, pip, venv
+
+Kod źródłowy projektu umieścić w nowym folderze. Utworzyć wirtualne środowisko:
+
+    python3 -m venv env
+
+Uruchomić wirtualne środowisko:
+
+    source env/bin/activate
+
+Zainstalować zależności:
+
+    pip install -r requirements.txt
 
 W pliku n4jtest/n4jtest/settings.py w linijce 85 wpisać nowo ustawione hasło do neo4j.
 
