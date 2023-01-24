@@ -55,7 +55,7 @@ ROOT_URLCONF = 'n4jtest.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ["templates"],
+        'DIRS': [BASE_DIR/"templates"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -82,7 +82,7 @@ DATABASES = {
 }
 
 N4J_USERNAME = 'neo4j'
-N4J_PASSWORD = '' # zmienić na odpowiednie
+N4J_PASSWORD = 'adminadmin' # zmienić na odpowiednie
 
 
 # Password validation

@@ -1,6 +1,6 @@
 import json
 from django.shortcuts import render,redirect
-from n4jtest import N4jConnection
+from movie_recs import N4jConnection
 from neo4j import Record
 from pandas import DataFrame
 from django.conf import settings
