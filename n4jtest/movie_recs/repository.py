@@ -1,4 +1,4 @@
-from n4jtest import N4jConnection
+from movie_recs import N4jConnection
 from django.conf import settings
 import re
 from pandas import DataFrame
@@ -105,14 +105,14 @@ def find_similar_movies(title):
     movies = get_movies()
     movie_id = search(movies, title)
     
-    similar_users = ratings[(ratings["mid"] == movie_id) & (ratings["rating"] > 4)]["uid"].unique()
-    similar_user_recs = ratings[(ratings["uid"].isin(similar_users)) & (ratings["rating"] > 4)]["mid"]
-    similar_user_recs = similar_user_recs.value_counts() / len(similar_users)
+    sim_users = ratings[(ratings["mid"] == movie_id) & (ratings["rating"] > 4)]["uid"].unique()
+    sim_user_recs = ratings[(ratings["uid"].isin(sim_users)) & (ratings["rating"] > 4)]["mid"]
+    sim_user_recs = sim_user_recs.value_counts() / len(sim_users)
 
-    similar_user_recs = similar_user_recs[similar_user_recs > .10]
-    all_users = ratings[(ratings["mid"].isin(similar_user_recs.index)) & (ratings["rating"] > 4)]
+    sim_user_recs = sim_user_recs[sim_user_recs > .10]
+    all_users = ratings[(ratings["mid"].isin(sim_user_recs.index)) & (ratings["rating"] > 4)]
     all_user_recs = all_users["mid"].value_counts() / len(all_users["uid"].unique())
-    rec_percentages = pd.concat([similar_user_recs, all_user_recs], axis=1)
+    rec_percentages = pd.concat([sim_user_recs, all_user_recs], axis=1)
     rec_percentages.columns = ["similar", "all"]
     
     rec_percentages["score"] = round(rec_percentages["similar"] / rec_percentages["all"],2)
