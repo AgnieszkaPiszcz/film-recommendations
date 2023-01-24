@@ -82,7 +82,7 @@ DATABASES = {
 }
 
 N4J_USERNAME = 'neo4j'
-N4J_PASSWORD = 'adminadmin' # zmienić na odpowiednie
+N4J_PASSWORD = '' # zmienić na odpowiednie
 
 
 # Password validation

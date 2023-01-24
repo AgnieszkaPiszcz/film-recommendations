@@ -10,8 +10,6 @@ System został zaimplementowany jako aplikacja webowa przy użyciu Pythonowego f
 
 ## Opis działania
 
-opis algorytmu i screenshoty z działania, diagram komunikacji 
-
 Klasa N4jConnection realizuje połączenie do bazy danych. Oferuje metodę query(), która wykonuje zapytanie do bazy danych i zwraca wyniki w formie pandas.DataFrame. 
 
 Za logikę systemu odpowiedzialny jest moduł repository. Opis funkcji:
